@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f8f4">
+    <meta name="description" content="National Agricultural Support and Monitoring System">
+    <meta name="nasms-api-base" content="http://localhost:8080">
+    <title>Sign in | NASMS</title>
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+  </head>
+  <body>
+    <div id="nasms-app">
+      <main id="login-view" class="auth-layout">
+        <section class="auth-visual" aria-labelledby="auth-visual-title">
+          <img
+            class="auth-visual__image"
+            src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1800&amp;q=85"
+            alt="Cultivated green farmland in warm early light"
+            fetchpriority="high"
+          >
+          <div class="auth-visual__shade" aria-hidden="true"></div>
+          <div class="auth-visual__inner">
+            <a class="brand auth-brand" href="#login" aria-label="NASMS sign in">
+              <span class="brand-mark" aria-hidden="true">N</span>
+              <span class="brand__text">
+                <span class="brand__name">NASMS</span>
+                <span class="brand__descriptor">National Agricultural Support &amp; Monitoring System</span>
+              </span>
+            </a>
+            <div class="auth-visual__message">
+              <p class="auth-visual__eyebrow">National Agricultural Support &amp; Monitoring System</p>
+              <h1 id="auth-visual-title">Growing stronger, together.</h1>
+              <p>Support for the people and communities who grow our future.</p>
+            </div>
+            <p class="auth-visual__caption">A shared place for agricultural support.</p>
+          </div>
+        </section>
+
+        <section class="auth-panel" aria-labelledby="login-title">
+          <div class="auth-panel__inner">
+            <div class="auth-card">
+              <div class="auth-card__heading">
+                <p class="eyebrow">NASMS account</p>
+                <h2 id="login-title">Welcome back</h2>
+                <p class="muted">Sign in with the email address linked to your account.</p>
+              </div>
+
+              <form id="login-form" class="form auth-form" novalidate>
+                <div class="field">
+                  <label class="field__label" for="email-address">Email address</label>
+                  <input
+                    class="control"
+                    id="email-address"
+                    name="emailAddress"
+                    type="email"
+                    autocomplete="username"
+                    inputmode="email"
+                    placeholder="you@example.com"
+                    required
+                    aria-describedby="email-error"
+                  >
+                  <p class="field__error" id="email-error" hidden></p>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="password">Password</label>
+                  <div class="password-field">
+                    <input
+                      class="control"
+                      id="password"
+                      name="password"
+                      type="password"
+                      autocomplete="current-password"
+                      placeholder="Enter your password"
+                      required
+                      aria-describedby="password-error"
+                    >
+                    <button
+                      class="button button--quiet button--small password-field__toggle"
+                      id="password-toggle"
+                      type="button"
+                      aria-controls="password"
+                      aria-pressed="false"
+                      aria-label="Show password"
+                    >Show</button>
+                  </div>
+                  <p class="field__error" id="password-error" hidden></p>
+                </div>
+
+                <p id="login-status" class="notice auth-status" role="status" aria-live="polite" hidden></p>
+
+                <button class="button button--primary auth-submit" id="login-submit" type="submit">
+                  <span class="auth-submit__label">Sign in</span>
+                  <span class="auth-submit__progress" aria-hidden="true" hidden></span>
+                </button>
+              </form>
+
+              <p class="auth-card__footnote">Your account access is verified securely with NASMS.</p>
+            </div>
+            <p class="auth-panel__footer">National Agricultural Support &amp; Monitoring System</p>
+          </div>
+        </section>
+      </main>
+
+      <section id="account-view" class="account-view" aria-label="Signed-in account" hidden>
+        <div id="app-header"></div>
+        <main class="account-main app-shell">
+          <section class="session-card" id="account-panel" tabindex="-1" aria-labelledby="session-title">
+            <p class="eyebrow">Secure session</p>
+            <h1 id="session-title">Signed in</h1>
+            <p class="session-card__intro" id="session-intro"></p>
+            <dl class="identity-grid" id="identity-details"></dl>
+          </section>
+          <p id="account-status" class="notice account-status" role="status" aria-live="polite" hidden></p>
+        </main>
+      </section>
+    </div>
+    <script src="assets/js/auth.js" defer></script>
+  </body>
+</html>

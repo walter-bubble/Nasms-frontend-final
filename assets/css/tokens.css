@@ -1,0 +1,67 @@
+:root {
+  color-scheme: light;
+  --color-forest-950: #163a2b;
+  --color-forest-850: #1e4f38;
+  --color-leaf-700: #2f7650;
+  --color-leaf-600: #438c5e;
+  --color-leaf-100: #e8f2e9;
+  --color-leaf-050: #f3f8f2;
+  --color-white: #ffffff;
+  --color-canvas: #f5f8f4;
+  --color-surface: #ffffff;
+  --color-surface-muted: #edf2ed;
+  --color-border: #d9e3da;
+  --color-border-strong: #b8cabb;
+  --color-text: #20352a;
+  --color-text-muted: #64746a;
+  --color-text-subtle: #829087;
+  --color-accent: #b8842e;
+  --color-accent-soft: #f7f0e2;
+  --color-danger: #b3423b;
+  --color-danger-soft: #faecea;
+  --color-warning: #9b6d18;
+  --color-warning-soft: #fbf3df;
+  --color-info: #386b87;
+  --color-info-soft: #eaf3f8;
+  --color-success: #28764d;
+  --color-success-soft: #e8f4eb;
+
+  --font-body: "Trebuchet MS", "Segoe UI", sans-serif;
+  --font-display: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --font-mono: Consolas, "Liberation Mono", monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.375rem;
+  --font-size-2xl: 1.75rem;
+  --font-size-3xl: 2.25rem;
+  --line-height-body: 1.55;
+  --line-height-heading: 1.2;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 3px rgb(22 58 43 / 8%);
+  --shadow-md: 0 8px 24px rgb(22 58 43 / 9%);
+  --shadow-lg: 0 18px 48px rgb(22 58 43 / 12%);
+  --focus-ring: 0 0 0 3px rgb(67 140 94 / 25%);
+
+  --content-width: 76rem;
+  --content-narrow: 48rem;
+  --control-height: 2.875rem;
+  --transition-fast: 140ms ease;
+  --transition-standard: 220ms ease;
+}
