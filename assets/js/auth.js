@@ -71,7 +71,7 @@
     passwordInput.disabled = loading;
     passwordToggle.disabled = loading;
     submitButton.disabled = loading;
-    submitLabel.textContent = loading ? "Signing in?" : "Sign in";
+    submitLabel.textContent = loading ? "Signing in..." : "Sign in";
     submitProgress.hidden = !loading;
   }
 
@@ -108,21 +108,36 @@
     return link;
   }
 
+  function createNavigationLink(label, href) {
+    const link = element("a", "nav-link", label);
+    link.href = href;
+    return link;
+  }
+
   function renderHeader(user) {
     const headerMount = document.getElementById("app-header");
     const header = element("header", "site-header app-shell");
+    const isAdmin = user.role === "ADMIN";
+    header.dataset.role = user.role;
     header.append(createBrand());
 
     const nav = element("nav", "primary-nav");
-    nav.setAttribute("aria-label", "Main navigation");
-    nav.append(createAccountLink("nav-link"));
+    const initialLinks = isAdmin
+      ? [["Admin dashboard", "#admin-dashboard"], ["Overview", "#admin-overview"]]
+      : [["Overview", "#dashboard-overview"], ["My account", "#account-panel"]];
+    nav.setAttribute("aria-label", isAdmin ? "Administrator navigation" : "Farmer navigation");
+    initialLinks.forEach(function ([label, href]) {
+      nav.append(createNavigationLink(label, href));
+    });
     header.append(nav);
 
     const mobileNav = element("details", "mobile-nav");
-    const summary = element("summary", "mobile-nav__summary", "Menu");
+    const summary = element("summary", "mobile-nav__summary", isAdmin ? "Admin menu" : "Menu");
     summary.setAttribute("aria-label", "Toggle navigation menu");
     const panel = element("div", "mobile-nav__panel");
-    panel.append(createAccountLink("nav-link"));
+    initialLinks.forEach(function ([label, href]) {
+      panel.append(createNavigationLink(label, href));
+    });
     mobileNav.append(summary, panel);
     header.append(mobileNav);
 
@@ -167,10 +182,19 @@
 
   function showAccount(user) {
     currentUser = user;
+    const isAdmin = user.role === "ADMIN";
+    document.getElementById("farmer-dashboard").hidden = isAdmin;
+    document.getElementById("admin-dashboard").hidden = !isAdmin;
+    document.getElementById("dashboard-role-message").hidden = true;
     renderHeader(user);
     renderIdentity(user);
     loginView.hidden = true;
     accountView.hidden = false;
+    if (window.nasmsDashboard) window.nasmsDashboard.render(user);
+    if (window.nasmsMarketplace) window.nasmsMarketplace.render(user);
+    if (window.nasmsLoans) window.nasmsLoans.render(user);
+    if (window.nasmsPayments) window.nasmsPayments.render(user);
+    if (window.nasmsAdmin) window.nasmsAdmin.render(user);
     setStatus(accountStatus, "", "");
     document.getElementById("account-panel").focus({ preventScroll: true });
   }

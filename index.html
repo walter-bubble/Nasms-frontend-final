@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/components.css">
     <link rel="stylesheet" href="assets/css/auth.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
   </head>
   <body>
     <div id="nasms-app">
@@ -24,7 +25,7 @@
           >
           <div class="auth-visual__shade" aria-hidden="true"></div>
           <div class="auth-visual__inner">
-            <a class="brand auth-brand" href="#login" aria-label="NASMS sign in">
+            <a class="brand auth-brand" href="#login-view" aria-label="NASMS sign in">
               <span class="brand-mark" aria-hidden="true">N</span>
               <span class="brand__text">
                 <span class="brand__name">NASMS</span>
@@ -61,9 +62,9 @@
                     inputmode="email"
                     placeholder="you@example.com"
                     required
-                    aria-describedby="email-error"
+                    aria-describedby="email-address-error"
                   >
-                  <p class="field__error" id="email-error" hidden></p>
+                  <p class="field__error" id="email-address-error" hidden></p>
                 </div>
 
                 <div class="field">
@@ -100,6 +101,7 @@
               </form>
 
               <p class="auth-card__footnote">Your account access is verified securely with NASMS.</p>
+              <p class="auth-card__footnote">New to NASMS? <a href="register.html">Create a farmer account</a></p>
             </div>
             <p class="auth-panel__footer">National Agricultural Support &amp; Monitoring System</p>
           </div>
@@ -109,6 +111,439 @@
       <section id="account-view" class="account-view" aria-label="Signed-in account" hidden>
         <div id="app-header"></div>
         <main class="account-main app-shell">
+          <p id="dashboard-role-message" class="notice" hidden></p>
+          <section id="farmer-dashboard" class="farmer-dashboard" hidden aria-labelledby="dashboard-title">
+            <header class="dashboard-hero" id="dashboard-overview">
+              <img
+                class="dashboard-hero__image"
+                src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1800&amp;q=85"
+                alt="Green cultivated farmland stretching across a rural landscape"
+                fetchpriority="high"
+              >
+              <div class="dashboard-hero__shade" aria-hidden="true"></div>
+              <div class="dashboard-hero__content">
+                <p class="dashboard-hero__eyebrow">Farmer workspace · NASMS</p>
+                <h1 id="dashboard-title">Welcome to NASMS</h1>
+                <p>Your account, financing options, marketplace listings, and season information from NASMS.</p>
+                <a class="button button--light" href="#loan-module">Explore loan services</a>
+              </div>
+            </header>
+            <nav class="dashboard-nav" id="dashboard-nav" aria-label="Farmer dashboard sections"></nav>
+            <section class="card dashboard-profile" id="dashboard-account" aria-labelledby="dashboard-account-title">
+              <div class="dashboard-profile__heading">
+                <div>
+                  <p class="eyebrow">Signed-in account</p>
+                  <h2 id="dashboard-account-title">Your NASMS account</h2>
+                </div>
+                <a class="button button--secondary button--small" href="#account-panel">Account details</a>
+              </div>
+              <dl class="dashboard-profile__details" id="dashboard-account-details"></dl>
+              <p class="muted text-small">These details come from your authenticated NASMS account. Farmer profile fields are not included in the account response.</p>
+            </section>
+            <div class="grid dashboard-services">
+              <section class="card dashboard-service" id="loan-services" aria-labelledby="loans-title">
+                <div class="dashboard-service__heading"><span class="dashboard-service__index" aria-hidden="true">01</span><div><p class="eyebrow">Financing</p><h2 id="loans-title">Loan packages</h2></div></div>
+                <p class="muted text-small">Packages currently listed by NASMS.</p>
+                <div class="dashboard-service__data" id="loan-package-list" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading loan packages...</p></div>
+              </section>
+              <section class="card dashboard-service" id="farmer-loan-summary" aria-labelledby="farmer-loans-title">
+                <div class="dashboard-service__heading"><span class="dashboard-service__index" aria-hidden="true">02</span><div><p class="eyebrow">Your financing</p><h2 id="farmer-loans-title">My loans</h2></div></div>
+                <p class="muted text-small">Loan records appear here after NASMS verifies them through the loan services section.</p>
+                <div class="dashboard-service__data" id="farmer-dashboard-loans" aria-live="polite" aria-busy="false">
+                  <p class="dashboard-empty">Load your records in Loan services to see loans linked to your farmer account.</p>
+                </div>
+                <a class="button button--secondary button--small" href="#loan-module">Open loan services</a>
+              </section>
+              <section class="card dashboard-service" id="market-services" aria-labelledby="market-title">
+                <div class="dashboard-service__heading"><span class="dashboard-service__index" aria-hidden="true">03</span><div><p class="eyebrow">Trade</p><h2 id="market-title">Marketplace</h2></div></div>
+                <p class="muted text-small">Listings currently available in the NASMS marketplace.</p>
+                <div class="dashboard-service__data" id="market-listings" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading marketplace listings...</p></div>
+              </section>
+              <section class="card dashboard-service" id="season-services" aria-labelledby="seasons-title">
+                <div class="dashboard-service__heading"><span class="dashboard-service__index" aria-hidden="true">04</span><div><p class="eyebrow">Planning</p><h2 id="seasons-title">Farming seasons</h2></div></div>
+                <p class="muted text-small">Season information published by NASMS.</p>
+                <div class="dashboard-service__data" id="farming-seasons" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading seasons...</p></div>
+              </section>
+            </div>
+          </section>
+          <section id="admin-dashboard" class="admin-dashboard" hidden aria-labelledby="admin-title">
+            <header class="admin-hero">
+              <img
+                class="admin-hero__image"
+                src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1800&amp;q=85"
+                alt="Rows of crops across a green farm landscape"
+                loading="lazy"
+              >
+              <div class="admin-hero__shade" aria-hidden="true"></div>
+              <div class="admin-hero__content">
+                <p class="admin-hero__eyebrow">NASMS administration</p>
+                <h1 id="admin-title">Supporting a stronger harvest</h1>
+                <p>Review the current farmer, financing, produce, transaction, and repayment records available to your administrator account.</p>
+                <button class="button button--light" id="admin-refresh-all" type="button">Refresh overview</button>
+              </div>
+            </header>
+
+            <nav class="dashboard-nav admin-nav" aria-label="Administrator dashboard sections">
+              <a class="nav-link" href="#admin-overview">Overview</a>
+              <a class="nav-link" href="#admin-farmers">Farmers</a>
+              <a class="nav-link" href="#admin-seasons">Seasons</a>
+              <a class="nav-link" href="#admin-packages">Loan packages</a>
+              <a class="nav-link" href="#admin-loans">Loan records</a>
+              <a class="nav-link" href="#admin-produce">Produce</a>
+              <a class="nav-link" href="#admin-transactions">Transactions</a>
+              <a class="nav-link" href="#admin-payments">Repayments</a>
+            </nav>
+
+            <section id="admin-overview" class="admin-overview" aria-label="Current record counts">
+              <article class="admin-stat"><span>Farmer records</span><strong id="admin-count-farmers">—</strong></article>
+              <article class="admin-stat"><span>Loan packages</span><strong id="admin-count-packages">—</strong></article>
+              <article class="admin-stat"><span>Loan records</span><strong id="admin-count-loans">—</strong></article>
+              <article class="admin-stat"><span>Market transactions</span><strong id="admin-count-transactions">—</strong></article>
+            </section>
+            <p class="muted text-small admin-count-note">Counts show records returned by NASMS; unavailable sections are not counted as zero.</p>
+
+            <section id="admin-farmers" class="card admin-panel" aria-labelledby="admin-farmers-title">
+              <header class="admin-panel__header">
+                <div><p class="eyebrow">Farmer accounts</p><h2 id="admin-farmers-title">Farmer directory</h2></div>
+                <button class="button button--secondary button--small" type="button" data-admin-retry="farmers">Refresh farmers</button>
+              </header>
+              <p class="muted text-small">Farmer profiles are read-only here. The backend scopes profile changes and deletion to the owning farmer.</p>
+              <label class="field admin-filter"><span class="field__label">Filter farmers</span><input class="control" id="admin-farmer-filter" type="search" placeholder="Name, email, National ID, or county"></label>
+              <div id="admin-farmers-state" class="admin-record-list" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading farmer records...</p></div>
+            </section>
+
+            <section id="admin-seasons" class="card admin-panel admin-season-panel" aria-labelledby="admin-seasons-title">
+              <header class="admin-panel__header">
+                <div><p class="eyebrow">Season planning</p><h2 id="admin-seasons-title">Farming seasons</h2></div>
+                <button class="button button--secondary button--small" type="button" data-admin-retry="seasons">Refresh seasons</button>
+              </header>
+              <p class="muted text-small">Manage season dates and budgets. A season is active only when it is not closed and today falls within its start and end dates.</p>
+              <p id="admin-season-status" class="notice admin-season-status" role="status" aria-live="polite" hidden></p>
+              <div id="admin-seasons-state" class="admin-record-list admin-season-list" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading farming seasons...</p></div>
+              <form id="admin-season-form" class="form admin-package-form admin-season-form" novalidate>
+                <div class="admin-panel__header">
+                  <div><p class="eyebrow">Season editor</p><h3 id="admin-season-form-title">Create a farming season</h3></div>
+                  <button class="button button--quiet button--small" id="admin-season-cancel" type="button" hidden>Cancel edit</button>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="admin-season-name">Season name</label>
+                  <input class="control" id="admin-season-name" name="seasonName" type="text" maxlength="120" required>
+                </div>
+                <div class="admin-form-grid">
+                  <div class="field"><label class="field__label" for="admin-season-start">Start date</label><input class="control" id="admin-season-start" name="startDate" type="date" required></div>
+                  <div class="field"><label class="field__label" for="admin-season-end">End date</label><input class="control" id="admin-season-end" name="endDate" type="date" required></div>
+                  <div class="field" id="admin-season-budget-field"><label class="field__label" for="admin-season-budget">Budget (KES)</label><input class="control" id="admin-season-budget" name="budget" type="number" min="0.01" step="0.01" required></div>
+                </div>
+                <p class="muted text-small" id="admin-season-edit-note" hidden>Season updates can change the name and dates. The backend does not update budget or closed status through this endpoint.</p>
+                <p id="admin-season-message" class="notice admin-message" role="status" aria-live="polite" hidden></p>
+                <div class="cluster">
+                  <button class="button button--primary" id="admin-season-submit" type="submit">Create season</button>
+                </div>
+              </form>
+            </section>
+
+            <section id="admin-packages" class="card admin-panel" aria-labelledby="admin-packages-title">
+              <header class="admin-panel__header">
+                <div><p class="eyebrow">Financing configuration</p><h2 id="admin-packages-title">Loan packages</h2></div>
+                <button class="button button--secondary button--small" type="button" data-admin-retry="packages">Refresh packages</button>
+              </header>
+              <p class="muted text-small">New packages attach to the active season and are checked against its remaining budget. The backend does not repeat that budget check when an existing package is edited.</p>
+              <p id="admin-package-season-status" class="notice admin-season-status" role="status" aria-live="polite">Checking active season from NASMS...</p>
+              <a class="button button--secondary button--small admin-season-link" href="#admin-seasons">Manage farming seasons</a>
+              <div id="admin-package-state" class="admin-record-list" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading loan packages...</p></div>
+              <form id="admin-package-form" class="form admin-package-form" novalidate>
+                <div class="admin-panel__header">
+                  <div><p class="eyebrow">Package editor</p><h3 id="admin-package-form-title">Add a loan package</h3></div>
+                  <button class="button button--quiet button--small" id="admin-package-cancel" type="button" hidden>Cancel edit</button>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="admin-package-description">Description</label>
+                  <input class="control" id="admin-package-description" name="description" type="text" required>
+                </div>
+                <div class="admin-form-grid">
+                  <div class="field"><label class="field__label" for="admin-package-amount">Amount (KES)</label><input class="control" id="admin-package-amount" name="amount" type="number" min="0.01" step="0.01" required></div>
+                  <div class="field"><label class="field__label" for="admin-package-interest">Interest rate (%)</label><input class="control" id="admin-package-interest" name="interestRate" type="number" min="0" step="0.01" required></div>
+                  <div class="field"><label class="field__label" for="admin-package-duration">Duration (months)</label><input class="control" id="admin-package-duration" name="durationMonths" type="number" min="1" step="1" required></div>
+                  <div class="field"><label class="field__label" for="admin-package-penalty">Monthly penalty</label><input class="control" id="admin-package-penalty" name="monthlyPenalty" type="number" min="0" step="0.01" required></div>
+                  <div class="field"><label class="field__label" for="admin-package-min-farm">Minimum farm size</label><input class="control" id="admin-package-min-farm" name="minimumFarmSize" type="number" min="0" step="0.01" required></div>
+                  <div class="field"><label class="field__label" for="admin-package-max-farm">Maximum farm size</label><input class="control" id="admin-package-max-farm" name="maximumFarmSize" type="number" min="0" step="0.01" required></div>
+                </div>
+                <p id="admin-package-message" class="notice admin-message" role="status" aria-live="polite" hidden></p>
+                <div class="cluster">
+                  <button class="button button--primary" id="admin-package-submit" type="submit">Create package</button>
+                </div>
+              </form>
+            </section>
+
+            <section id="admin-loans" class="card admin-panel" aria-labelledby="admin-loans-title">
+              <header class="admin-panel__header">
+                <div><p class="eyebrow">Loan applications</p><h2 id="admin-loans-title">Loan records</h2></div>
+                <button class="button button--secondary button--small" type="button" data-admin-retry="loans">Refresh loans</button>
+              </header>
+              <p class="notice admin-limitation">NASMS creates loans with status ACTIVE and exposes no approve or reject operation. These records are shown as returned; no review action is offered.</p>
+              <label class="field admin-filter"><span class="field__label">Filter loan records</span><input class="control" id="admin-loan-filter" type="search" placeholder="Farmer, National ID, status, or season"></label>
+              <div id="admin-loans-state" class="admin-record-list" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading loan records...</p></div>
+            </section>
+
+            <section id="admin-produce" class="card admin-panel" aria-labelledby="admin-produce-title">
+              <header class="admin-panel__header">
+                <div><p class="eyebrow">Produce catalogue</p><h2 id="admin-produce-title">Farm produce</h2></div>
+                <button class="button button--secondary button--small" type="button" data-admin-retry="produce">Refresh produce</button>
+              </header>
+              <p class="muted text-small">Product records can be removed by administrators. Marketplace listings are shown separately and can only be changed by their owner.</p>
+              <label class="field admin-filter"><span class="field__label">Filter produce</span><input class="control" id="admin-produce-filter" type="search" placeholder="Produce name or product code"></label>
+              <p id="admin-produce-message" class="notice admin-message" role="status" aria-live="polite" hidden></p>
+              <div id="admin-produce-state" class="admin-record-list" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading produce catalogue...</p></div>
+            </section>
+
+            <section id="admin-market-listings" class="card admin-panel" aria-labelledby="admin-listings-title">
+              <header class="admin-panel__header">
+                <div><p class="eyebrow">Marketplace</p><h2 id="admin-listings-title">Produce listings</h2></div>
+                <button class="button button--secondary button--small" type="button" data-admin-retry="listings">Refresh listings</button>
+              </header>
+              <p class="muted text-small">Listings are visible for oversight; backend edits and deletion are restricted to the listing owner.</p>
+              <div id="admin-listings-state" class="admin-record-list" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading marketplace listings...</p></div>
+            </section>
+
+            <section id="admin-transactions" class="card admin-panel" aria-labelledby="admin-transactions-title">
+              <header class="admin-panel__header">
+                <div><p class="eyebrow">Marketplace activity</p><h2 id="admin-transactions-title">Transactions</h2></div>
+                <button class="button button--secondary button--small" type="button" data-admin-retry="transactions">Refresh transactions</button>
+              </header>
+              <div id="admin-transactions-state" class="admin-record-list" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading transactions...</p></div>
+            </section>
+
+            <section id="admin-payments" class="card admin-panel" aria-labelledby="admin-payments-title">
+              <header class="admin-panel__header">
+                <div><p class="eyebrow">Loan repayments</p><h2 id="admin-payments-title">Payment records</h2></div>
+                <button class="button button--secondary button--small" type="button" data-admin-retry="loans">Refresh payment records</button>
+              </header>
+              <p class="notice admin-limitation">There is no separate administrator payment-history endpoint. This view can show only payment records included in the administrator loan response.</p>
+              <div id="admin-payments-state" class="admin-record-list" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading payment records...</p></div>
+            </section>
+          </section>
+          <section id="marketplace-module" class="marketplace-module" hidden aria-labelledby="marketplace-title">
+            <header class="marketplace-header">
+              <div class="stack">
+                <p class="eyebrow">NASMS marketplace</p>
+                <h2 id="marketplace-title" tabindex="-1">Farm produce listings</h2>
+                <p class="muted">Trade produce with fellow farmers: browse live listings, order available quantities, or offer your own harvest.</p>
+              </div>
+              <div class="cluster marketplace-header__actions">
+                <a class="button button--primary" href="#market-seller-workspace">Sell produce</a>
+                <a class="button button--secondary" href="#dashboard-overview">Back to overview</a>
+              </div>
+            </header>
+
+            <section id="market-seller-workspace" class="market-seller-workspace" aria-labelledby="market-seller-title">
+              <header class="market-seller-workspace__heading">
+                <div>
+                  <p class="eyebrow">Your farm, your marketplace</p>
+                  <h3 id="market-seller-title">Sell produce and manage your listings</h3>
+                  <p class="muted text-small">Verify your farmer record to load your seller-scoped listings and publish produce.</p>
+                </div>
+                <img src="assets/images/loans/fresh-produce.jpg" alt="Illustrative photo of freshly harvested vegetables" loading="lazy">
+              </header>
+              <form id="market-seller-profile-form" class="market-seller-profile-form" novalidate>
+                <label class="field" for="market-seller-national-id">
+                  <span class="field__label">Farmer National ID</span>
+                  <input class="control" id="market-seller-national-id" name="nationalId" type="text" inputmode="numeric" autocomplete="off" required aria-describedby="market-seller-profile-error">
+                  <span class="field__hint">NASMS uses this owner-checked lookup to resolve your farmer record ID.</span>
+                  <span class="field__error" id="market-seller-profile-error" hidden></span>
+                </label>
+                <button class="button button--secondary" id="market-load-seller" type="submit">Load my listings</button>
+              </form>
+              <p id="market-seller-profile-status" class="notice market-status" role="status" aria-live="polite" hidden></p>
+              <div id="market-seller-tools" class="market-seller-tools" hidden>
+                <section class="market-sell-panel" aria-labelledby="market-sell-title">
+                  <div class="section-heading">
+                    <div class="section-heading__copy">
+                      <p class="eyebrow">Create a sale listing</p>
+                      <h4 id="market-sell-title">Sell produce</h4>
+                    </div>
+                  </div>
+                  <p class="muted text-small">Use a product code that already exists in NASMS; the order endpoint requires a matching Product record for checkout.</p>
+                  <form id="market-sell-form" class="market-sell-form" novalidate>
+                    <label class="field" for="market-sale-product">
+                      <span class="field__label">Product name</span>
+                      <input class="control" id="market-sale-product" name="productName" type="text" required>
+                      <span class="field__error" id="market-sale-product-error" hidden></span>
+                    </label>
+                    <label class="field" for="market-sale-product-code">
+                      <span class="field__label">Existing NASMS product code</span>
+                      <input class="control" id="market-sale-product-code" name="productCode" type="text" required>
+                      <span class="field__error" id="market-sale-product-code-error" hidden></span>
+                    </label>
+                    <div class="field-row">
+                      <label class="field" for="market-sale-quantity">
+                        <span class="field__label">Quantity to list</span>
+                        <input class="control" id="market-sale-quantity" name="quantity" type="number" min="0" step="any" inputmode="decimal" required>
+                        <span class="field__error" id="market-sale-quantity-error" hidden></span>
+                      </label>
+                      <label class="field" for="market-sale-price">
+                        <span class="field__label">Price per unit (KES)</span>
+                        <input class="control" id="market-sale-price" name="price" type="number" min="0" step="any" inputmode="decimal" required>
+                        <span class="field__error" id="market-sale-price-error" hidden></span>
+                      </label>
+                    </div>
+                    <button class="button button--primary" id="market-sell-submit" type="submit" disabled>Publish listing</button>
+                  </form>
+                  <p id="market-sell-status" class="notice market-status" role="status" aria-live="polite" hidden></p>
+                </section>
+                <section class="market-my-listings" aria-labelledby="market-my-listings-title">
+                  <header class="market-my-listings__heading">
+                    <div>
+                      <p class="eyebrow">Seller workspace</p>
+                      <h4 id="market-my-listings-title">My listings</h4>
+                    </div>
+                    <button class="button button--secondary button--small" id="market-refresh-own-listings" type="button">Refresh listings</button>
+                  </header>
+                  <div id="market-my-listings" class="marketplace-grid" aria-live="polite" aria-busy="false">
+                    <p class="dashboard-empty">Load your seller profile to view your listings.</p>
+                  </div>
+                </section>
+              </div>
+            </section>
+
+            <section class="market-browse" aria-labelledby="market-browse-title">
+              <div class="section-heading">
+                <div class="section-heading__copy">
+                  <p class="eyebrow">Available listings</p>
+                  <h3 id="market-browse-title">Browse produce</h3>
+                </div>
+              </div>
+              <form id="market-search-form" class="market-search-form" role="search">
+                <label class="field" for="market-product-search">
+                  <span class="field__label">Product name</span>
+                  <input class="control" id="market-product-search" name="productName" type="search" autocomplete="off" placeholder="Search by exact product name">
+                </label>
+                <button class="button button--primary" type="submit">Search</button>
+                <button class="button button--secondary" id="market-show-all" type="button">Show all listings</button>
+              </form>
+              <p class="market-search-hint muted text-small">Product-name search uses the exact-name marketplace endpoint.</p>
+              <p id="market-listing-status" class="notice market-status" role="status" aria-live="polite" hidden></p>
+              <div id="marketplace-listings" class="marketplace-grid" aria-live="polite" aria-busy="true">
+                <p class="dashboard-loading">Loading marketplace listings...</p>
+              </div>
+            </section>
+
+            <section class="card market-delivery-limitation" aria-labelledby="market-delivery-title">
+              <p class="eyebrow">Produce delivery scheduling</p>
+              <h3 id="market-delivery-title">Delivery requests are not available here yet</h3>
+              <p class="muted">NASMS exposes a produce-order request with a response status and scheduled date, but its service does not verify that the supplied National ID belongs to the authenticated farmer. The order-history route also declares a path variable that is missing from its URL. These delivery actions are withheld until the backend can safely scope them to the current farmer.</p>
+            </section>
+          </section>
+
+          <section id="loan-module" class="loan-module" hidden aria-labelledby="loan-module-title">
+            <header class="loan-page-header">
+              <div class="stack">
+                <p class="eyebrow">Farmer financing</p>
+                <h2 id="loan-module-title" tabindex="-1">Loan services</h2>
+                <p class="muted">Review loan packages published by NASMS and check loans linked to your farmer record.</p>
+              </div>
+              <a class="button button--secondary" href="#dashboard-overview">Back to overview</a>
+            </header>
+
+            <p class="notice loan-contract-note">The backend creates applications with status ACTIVE. Its loan status values are ACTIVE, APPROVED, COMPLETED, OVERDUE, and CANCELED; it does not define PENDING or REJECTED.</p>
+            <p class="notice loan-rules-note">Applications are checked by NASMS for an active season, available season budget, and an existing ACTIVE loan.</p>
+
+            <div class="grid grid--2 loan-workspace">
+              <section class="card loan-panel" aria-labelledby="loan-records-title">
+                <div class="section-heading loan-section-heading">
+                  <div class="section-heading__copy">
+                    <p class="eyebrow">Your record</p>
+                    <h3 id="loan-records-title">Current loans</h3>
+                  </div>
+                </div>
+                <form id="loan-national-id-form" class="form loan-national-id-form" novalidate>
+                  <div class="field">
+                    <label class="field__label" for="loan-national-id">National ID</label>
+                    <input class="control" id="loan-national-id" name="nationalId" type="text" inputmode="numeric" autocomplete="off" required aria-describedby="loan-national-id-error">
+                    <p class="field__error" id="loan-national-id-error" hidden></p>
+                  </div>
+                  <button class="button button--secondary" id="load-farmer-loans" type="submit">Load my loans</button>
+                </form>
+                <p id="loan-record-status" class="notice loan-inline-status" role="status" aria-live="polite" hidden></p>
+                <div class="loan-record-list" id="farmer-loan-records" aria-live="polite" aria-busy="false">
+                  <p class="dashboard-empty">Enter your National ID to load loans linked to your farmer record.</p>
+                </div>
+              </section>
+
+              <section class="card loan-panel" aria-labelledby="loan-packages-title">
+                <div class="section-heading loan-section-heading">
+                  <div class="section-heading__copy">
+                    <p class="eyebrow">NASMS packages</p>
+                    <h3 id="loan-packages-title">Loan packages</h3>
+                  </div>
+                </div>
+                <div class="loan-package-list" id="loan-package-catalog" aria-live="polite" aria-busy="true">
+                  <p class="dashboard-loading">Loading loan packages...</p>
+                </div>
+                <form id="loan-application-form" class="form loan-application-form" novalidate>
+                  <div class="field">
+                    <label class="field__label" for="loan-package-choice">Select a package</label>
+                    <select class="control control--select" id="loan-package-choice" name="packageId" required>
+                      <option value="">Choose a loan package</option>
+                    </select>
+                    <p class="field__error" id="loan-package-choice-error" hidden></p>
+                  </div>
+                  <button class="button button--primary" id="submit-loan-application" type="submit" disabled>Apply to selected package</button>
+                </form>
+                <p id="loan-application-status" class="notice loan-inline-status" role="status" aria-live="polite" hidden></p>
+              </section>
+            </div>
+
+            <section id="loan-payment-details" class="card loan-payment-details" aria-labelledby="loan-payment-title">
+              <div class="payments-farm-strip">
+                <img
+                  src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
+                  alt="Green cultivated fields"
+                  loading="lazy"
+                >
+                <p class="eyebrow">Growing with confidence</p>
+              </div>
+              <p class="eyebrow">Repayment details</p>
+              <h3 id="loan-payment-title">Loan balances and payment records</h3>
+              <p class="muted text-small">Remaining balances and any payment records included in your loan response appear here. NASMS exposes M-Pesa STK Push as a loan-linked action.</p>
+              <p class="notice loan-contract-note">Sending a request contacts Daraja and prompts the selected phone. An accepted STK request is not a completed payment. Payment status is not queryable separately; refresh your loans to read any status returned with them.</p>
+              <div class="loan-payment-workspace">
+                <div id="mpesa-unavailable" class="dashboard-empty">Load your farmer loans in the loan section to choose a loan for payment.</div>
+                <form id="mpesa-payment-form" class="form" novalidate hidden>
+                  <div class="field">
+                    <label class="field__label" for="mpesa-loan-choice">Loan</label>
+                    <select class="control control--select" id="mpesa-loan-choice" required>
+                      <option value="">Choose a loan</option>
+                    </select>
+                  </div>
+                  <dl class="loan-detail-grid" id="mpesa-loan-summary" hidden></dl>
+                  <div class="field-row">
+                    <div class="field">
+                      <label class="field__label" for="mpesa-phone-number">M-Pesa phone number</label>
+                      <input class="control" id="mpesa-phone-number" type="tel" inputmode="tel" autocomplete="tel" placeholder="07..., 01..., 254... or +254..." required aria-describedby="mpesa-phone-number-error">
+                      <p class="field__error" id="mpesa-phone-number-error" hidden></p>
+                    </div>
+                    <div class="field">
+                      <label class="field__label" for="mpesa-amount">Amount (KES)</label>
+                      <input class="control" id="mpesa-amount" type="number" min="1" step="1" inputmode="numeric" required aria-describedby="mpesa-amount-error">
+                      <p class="field__error" id="mpesa-amount-error" hidden></p>
+                    </div>
+                  </div>
+                  <label class="check-control" for="mpesa-confirm-send">
+                    <input id="mpesa-confirm-send" type="checkbox" required>
+                    <span>I have checked the loan, amount, and phone number and want NASMS to send an M-Pesa prompt.</span>
+                  </label>
+                  <button class="button button--primary" id="mpesa-submit" type="submit" disabled>Send M-Pesa prompt</button>
+                </form>
+                <p id="mpesa-payment-status" class="notice loan-inline-status" role="status" aria-live="polite" hidden></p>
+                <section id="mpesa-request-result" class="loan-payment-history" aria-live="polite" hidden></section>
+                <div class="cluster">
+                  <button class="button button--secondary button--small" id="mpesa-refresh-loans" type="button">Refresh loan and payment status</button>
+                </div>
+                <div id="mpesa-payment-records" class="loan-payment-list" aria-live="polite"></div>
+              </div>
+            </section>
+          </section>
+
           <section class="session-card" id="account-panel" tabindex="-1" aria-labelledby="session-title">
             <p class="eyebrow">Secure session</p>
             <h1 id="session-title">Signed in</h1>
@@ -120,5 +555,10 @@
       </section>
     </div>
     <script src="assets/js/auth.js" defer></script>
+    <script src="assets/js/dashboard.js" defer></script>
+    <script src="assets/js/loans.js" defer></script>
+    <script src="assets/js/payments.js" defer></script>
+    <script src="assets/js/marketplace.js" defer></script>
+    <script src="assets/js/admin.js" defer></script>
   </body>
 </html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f8f4">
+    <meta name="description" content="Create a NASMS farmer account">
+    <meta name="nasms-api-base" content="http://localhost:8080">
+    <title>Farmer registration | NASMS</title>
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+  </head>
+  <body>
+    <main class="auth-layout">
+      <section class="auth-visual" aria-labelledby="registration-visual-title">
+        <img
+          class="auth-visual__image"
+          src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1800&amp;q=85"
+          alt="Cultivated green farmland in warm early light"
+          fetchpriority="high"
+        >
+        <div class="auth-visual__shade" aria-hidden="true"></div>
+        <div class="auth-visual__inner">
+          <a class="brand auth-brand" href="index.html" aria-label="NASMS sign in">
+            <span class="brand-mark" aria-hidden="true">N</span>
+            <span class="brand__text">
+              <span class="brand__name">NASMS</span>
+              <span class="brand__descriptor">National Agricultural Support &amp; Monitoring System</span>
+            </span>
+          </a>
+          <div class="auth-visual__message">
+            <p class="auth-visual__eyebrow">Farmer registration</p>
+            <h1 id="registration-visual-title">Your work helps feed a nation.</h1>
+            <p>Join the national network connecting farmers with agricultural support.</p>
+          </div>
+          <p class="auth-visual__caption">A shared place for agricultural support.</p>
+        </div>
+      </section>
+
+      <section class="auth-panel" aria-labelledby="registration-title">
+        <div class="auth-panel__inner auth-panel__inner--registration">
+          <div class="auth-card">
+            <div class="auth-card__heading">
+              <p class="eyebrow">Farmer account</p>
+              <h2 id="registration-title">Create your account</h2>
+              <p class="muted">Enter your account and farm details to register with NASMS.</p>
+            </div>
+
+            <form id="registration-form" class="form registration-form" novalidate>
+              <div class="registration-grid">
+                <div class="field">
+                  <label class="field__label" for="register-user-name">Username <span class="registration-required">Required</span></label>
+                  <input class="control" id="register-user-name" name="userName" type="text" autocomplete="username" autocapitalize="none" required aria-describedby="register-user-name-error">
+                  <p class="field__error" id="register-user-name-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="register-email">Email address <span class="registration-required">Required</span></label>
+                  <input class="control" id="register-email" name="emailAddress" type="email" autocomplete="email" inputmode="email" required aria-describedby="register-email-error">
+                  <p class="field__error" id="register-email-error" hidden></p>
+                </div>
+                <div class="field registration-grid__wide">
+                  <label class="field__label" for="register-password">Password <span class="registration-required">Required</span></label>
+                  <div class="password-field">
+                    <input class="control" id="register-password" name="password" type="password" autocomplete="new-password" required aria-describedby="register-password-error">
+                    <button class="button button--quiet button--small password-field__toggle" id="registration-password-toggle" type="button" aria-controls="register-password" aria-pressed="false" aria-label="Show password">Show</button>
+                  </div>
+                  <p class="field__error" id="register-password-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="register-name">Farmer name <span class="registration-optional">Optional</span></label>
+                  <input class="control" id="register-name" name="name" type="text" autocomplete="name">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="register-county">County <span class="registration-optional">Optional</span></label>
+                  <input class="control" id="register-county" name="county" type="text" autocomplete="address-level1">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="register-title-number">Title number <span class="registration-optional">Optional</span></label>
+                  <input class="control" id="register-title-number" name="titleNumber" type="text">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="register-national-id">National ID <span class="registration-required">Required</span></label>
+                  <input class="control" id="register-national-id" name="nationalId" type="text" inputmode="numeric" autocomplete="off" required aria-describedby="register-national-id-error">
+                  <p class="field__error" id="register-national-id-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="register-phone">Phone number <span class="registration-optional">Optional</span></label>
+                  <input class="control" id="register-phone" name="phoneNumber" type="tel" autocomplete="tel" aria-describedby="register-phone-error">
+                  <p class="field__error" id="register-phone-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="register-farm-size">Farm size <span class="registration-optional">Optional</span></label>
+                  <input class="control" id="register-farm-size" name="farmSize" type="number" step="any" inputmode="decimal" aria-describedby="register-farm-size-error">
+                  <p class="field__error" id="register-farm-size-error" hidden></p>
+                </div>
+              </div>
+
+              <p id="registration-status" class="notice auth-status" role="alert" aria-live="polite" hidden></p>
+              <button class="button button--primary auth-submit" id="registration-submit" type="submit">
+                <span class="registration-submit__label">Create farmer account</span>
+                <span class="auth-submit__progress" aria-hidden="true" hidden></span>
+              </button>
+            </form>
+
+            <div id="registration-success" class="registration-success" hidden aria-live="polite">
+              <p class="eyebrow">Registration complete</p>
+              <h3 tabindex="-1">Your farmer account is ready.</h3>
+              <p class="muted">Your account has been created with the FARMER role. Sign in to continue.</p>
+              <dl class="registration-summary" id="registration-summary"></dl>
+              <a class="button button--primary registration-success__login" href="index.html">Go to sign in</a>
+            </div>
+
+            <p class="auth-card__footnote">Already have an account? <a href="index.html">Sign in</a></p>
+          </div>
+          <p class="auth-panel__footer">National Agricultural Support &amp; Monitoring System</p>
+        </div>
+      </section>
+    </main>
+    <script src="assets/js/registration.js" defer></script>
+  </body>
+</html>
