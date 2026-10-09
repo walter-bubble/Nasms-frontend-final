@@ -130,39 +130,64 @@
             </header>
             <nav class="dashboard-nav" id="dashboard-nav" aria-label="Farmer dashboard sections"></nav>
             <section class="card dashboard-profile" id="dashboard-account" aria-labelledby="dashboard-account-title">
-              <div class="dashboard-profile__heading">
-                <div>
-                  <p class="eyebrow">Signed-in account</p>
-                  <h2 id="dashboard-account-title">Your NASMS account</h2>
-                </div>
-                <a class="button button--secondary button--small" href="#account-panel">Account details</a>
+              <div class="dashboard-profile__content">
+                <header class="dashboard-profile__heading">
+                  <div class="dashboard-profile__intro">
+                    <p class="dashboard-profile__eyebrow">Signed-in account</p>
+                    <h2 id="dashboard-account-title">Your NASMS account</h2>
+                    <p class="dashboard-profile__welcome" id="dashboard-account-welcome">Welcome back.</p>
+                  </div>
+                  <a class="button button--light button--small dashboard-profile__action" href="#account-panel">Account details</a>
+                </header>
+                <dl class="dashboard-profile__details" id="dashboard-account-details"></dl>
               </div>
-              <dl class="dashboard-profile__details" id="dashboard-account-details"></dl>
-              <p class="muted text-small">These details come from your authenticated NASMS account. Farmer profile fields are not included in the account response.</p>
             </section>
-            <div class="grid dashboard-services">
-              <section class="card dashboard-service" id="loan-services" aria-labelledby="loans-title">
-                <div class="dashboard-service__heading"><span class="dashboard-service__index" aria-hidden="true">01</span><div><p class="eyebrow">Financing</p><h2 id="loans-title">Loan packages</h2></div></div>
-                <p class="muted text-small">Packages currently listed by NASMS.</p>
-                <div class="dashboard-service__data" id="loan-package-list" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading loan packages...</p></div>
-              </section>
-              <section class="card dashboard-service" id="farmer-loan-summary" aria-labelledby="farmer-loans-title">
-                <div class="dashboard-service__heading"><span class="dashboard-service__index" aria-hidden="true">02</span><div><p class="eyebrow">Your financing</p><h2 id="farmer-loans-title">My loans</h2></div></div>
-                <p class="muted text-small">Loan records appear here after NASMS verifies them through the loan services section.</p>
-                <div class="dashboard-service__data" id="farmer-dashboard-loans" aria-live="polite" aria-busy="false">
-                  <p class="dashboard-empty">Load your records in Loan services to see loans linked to your farmer account.</p>
+            <div class="dashboard-services" aria-label="Farmer services">
+              <section class="dashboard-service" id="loan-services" aria-labelledby="loans-title">
+                <img class="dashboard-service__image" src="assets/images/loans/young-seedlings.jpg" alt="" aria-hidden="true" loading="lazy">
+                <div class="dashboard-service__content">
+                  <div class="dashboard-service__heading"><p class="dashboard-service__category">Financing</p><h2 id="loans-title">Loan packages</h2></div>
+                  <p class="dashboard-service__description">Packages currently listed by NASMS.</p>
+                  <div class="dashboard-service__data" id="loan-package-list" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading loan packages...</p></div>
                 </div>
-                <a class="button button--secondary button--small" href="#loan-module">Open loan services</a>
+                <a class="dashboard-service__action" href="#loan-module" aria-label="Explore loan packages">
+                  <span>Explore</span><span class="dashboard-service__arrow" aria-hidden="true">→</span>
+                </a>
               </section>
-              <section class="card dashboard-service" id="market-services" aria-labelledby="market-title">
-                <div class="dashboard-service__heading"><span class="dashboard-service__index" aria-hidden="true">03</span><div><p class="eyebrow">Trade</p><h2 id="market-title">Marketplace</h2></div></div>
-                <p class="muted text-small">Listings currently available in the NASMS marketplace.</p>
-                <div class="dashboard-service__data" id="market-listings" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading marketplace listings...</p></div>
+              <section class="dashboard-service" id="farmer-loan-summary" aria-labelledby="farmer-loans-title">
+                <img class="dashboard-service__image" src="assets/images/loans/golden-crop-field.jpg" alt="" aria-hidden="true" loading="lazy">
+                <div class="dashboard-service__content">
+                  <div class="dashboard-service__heading"><p class="dashboard-service__category">Your financing</p><h2 id="farmer-loans-title">My loans</h2></div>
+                  <p class="dashboard-service__description">Loan records appear here after NASMS verifies them through the loan services section.</p>
+                  <div class="dashboard-service__data" id="farmer-dashboard-loans" aria-live="polite" aria-busy="false">
+                    <p class="dashboard-empty">Load your records in Loan services to see loans linked to your farmer account.</p>
+                  </div>
+                </div>
+                <a class="dashboard-service__action" href="#loan-module" aria-label="Open loan services">
+                  <span>Open loans</span><span class="dashboard-service__arrow" aria-hidden="true">→</span>
+                </a>
               </section>
-              <section class="card dashboard-service" id="season-services" aria-labelledby="seasons-title">
-                <div class="dashboard-service__heading"><span class="dashboard-service__index" aria-hidden="true">04</span><div><p class="eyebrow">Planning</p><h2 id="seasons-title">Farming seasons</h2></div></div>
-                <p class="muted text-small">Season information published by NASMS.</p>
-                <div class="dashboard-service__data" id="farming-seasons" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading seasons...</p></div>
+              <section class="dashboard-service" id="market-services" aria-labelledby="market-title">
+                <img class="dashboard-service__image" src="assets/images/loans/fresh-produce.jpg" alt="" aria-hidden="true" loading="lazy">
+                <div class="dashboard-service__content">
+                  <div class="dashboard-service__heading"><p class="dashboard-service__category">Trade</p><h2 id="market-title">Marketplace</h2></div>
+                  <p class="dashboard-service__description">Listings currently available in the NASMS marketplace.</p>
+                  <div class="dashboard-service__data" id="market-listings" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading marketplace listings...</p></div>
+                </div>
+                <a class="dashboard-service__action" href="#marketplace-module" aria-label="Browse the marketplace">
+                  <span>Browse</span><span class="dashboard-service__arrow" aria-hidden="true">→</span>
+                </a>
+              </section>
+              <section class="dashboard-service" id="season-services" aria-labelledby="seasons-title">
+                <img class="dashboard-service__image" src="assets/images/loans/young-seedlings.jpg" alt="" aria-hidden="true" loading="lazy">
+                <div class="dashboard-service__content">
+                  <div class="dashboard-service__heading"><p class="dashboard-service__category">Planning</p><h2 id="seasons-title">Farming seasons</h2></div>
+                  <p class="dashboard-service__description">Season information published by NASMS.</p>
+                  <div class="dashboard-service__data" id="farming-seasons" aria-live="polite" aria-busy="true"><p class="dashboard-loading">Loading seasons...</p></div>
+                </div>
+                <a class="dashboard-service__action" href="#farming-seasons" aria-label="View farming seasons">
+                  <span>View seasons</span><span class="dashboard-service__arrow" aria-hidden="true">→</span>
+                </a>
               </section>
             </div>
           </section>

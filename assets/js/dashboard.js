@@ -90,8 +90,7 @@
     [
       ["Name", user.userName],
       ["Email address", user.emailAddress],
-      ["Role", user.role],
-      ["Account ID", user.id]
+      ["Role", user.role]
     ].forEach(function ([label, value]) {
       const item = node("div", "dashboard-profile__item");
       item.append(node("dt", "", label));
@@ -194,6 +193,8 @@
     roleMessage.hidden = true;
     root.hidden = false;
     document.getElementById("dashboard-title").textContent = "Welcome, " + (user.userName || user.emailAddress);
+    document.getElementById("dashboard-account-welcome").textContent =
+      "Welcome back, " + (user.userName || user.emailAddress) + ".";
     renderAccount(user);
     populateNavigation();
     loadPackageOverview();
